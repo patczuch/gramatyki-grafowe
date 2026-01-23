@@ -10,5 +10,6 @@ from productions.p11.p11 import P11
 from productions.p12.p12 import P12
 from productions.p1.p1 import P1
 from productions.p5.p5 import P5
+from productions.p4.p4 import P4
 
-__all__ = ['Production', 'P0', 'P1' 'P3', 'P5', 'P7', 'P9', 'P10', 'P11', 'P12']
+__all__ = ['Production', 'P0', 'P1' 'P3', 'P4', 'P5', 'P7', 'P9', 'P10', 'P11', 'P12']

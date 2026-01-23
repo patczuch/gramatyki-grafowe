@@ -67,10 +67,10 @@ class P5(Production):
             edge = graph.add_edge(m[i], center_node)
             edges.append(edge)
 
-        graph.add_hyperedge([n[0], m[0], center_node, m[3]], label="Q")
-        graph.add_hyperedge([m[0], n[1], m[1], center_node], label="Q")
-        graph.add_hyperedge([center_node, m[1], n[2], m[2]], label="Q")
-        graph.add_hyperedge([m[3], center_node, m[2], n[3]], label="Q")
+        H1 = graph.add_hyperedge([n[0], m[0], center_node, m[3]], label="Q")
+        H2 = graph.add_hyperedge([m[0], n[1], m[1], center_node], label="Q")
+        H3 = graph.add_hyperedge([center_node, m[1], n[2], m[2]], label="Q")
+        H4 = graph.add_hyperedge([m[3], center_node, m[2], n[3]], label="Q")
         
         print(f"[{self.name}] Broke quadrilateral hyperedge into 4 smaller quadrilaterals.")
         print(f"[{self.name}] Hyperedge R set to 0: {edges}")
@@ -78,6 +78,7 @@ class P5(Production):
         return {
             'marked_hyperedge': matched_elements['hyperedge'],
             'nodes': matched_elements['nodes'],
-            'edges': matched_elements['edges']
+            'edges': matched_elements['edges'],
+            'new_hyperedges': [H1, H2, H3, H4]
         }
 

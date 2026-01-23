@@ -44,8 +44,11 @@ class HyperGraph:
         for edge in self.edges:
             print(f"  {edge}")
 
-    def visualize(self, filename=None):
-        plt.figure(figsize=(10, 10))
+    def visualize(self, filename=None, draw_tags=True):
+        # if not "16.png" and not "17.png" and not "18.png" and not "19.png" and not "20.png" and not "21.png" in filename\
+        #         and not "22.png" in filename and not "23.png" in filename and not "24.png" in filename and not "25.png" in filename:
+        #     return
+        plt.figure(figsize=(20, 20))
 
         for edge in self.edges:
             if not edge.is_hyperedge():
@@ -59,12 +62,13 @@ class HyperGraph:
                 else:
                     color = 'black'
 
-                plt.scatter(edge.x, edge.y, s=700, c='white', marker='s',
+                if draw_tags:
+                    plt.scatter(edge.x, edge.y, s=700, c='white', marker='s',
                             edgecolors='black', linewidths=1.5, zorder=14)
 
-                label_text = f"{edge.label}\nR={edge.R}" if edge.R else edge.label
-                plt.text(edge.x, edge.y, label_text, ha='center', va='center',
-                         fontsize=12, fontweight='bold', zorder=15)
+                    label_text = f"{edge.label}\nR={edge.R}" if edge.R else edge.label
+                    plt.text(edge.x, edge.y, label_text, ha='center', va='center',
+                             fontsize=12, fontweight='bold', zorder=15)
 
                 # Edge is thicker if it's a border edge
                 linewidth = 4 if edge.B else 2
@@ -73,27 +77,30 @@ class HyperGraph:
                 # Hyperedge color: bright red for marked (R=1), yellow for normal (R=0)
                 hyperedge_color = 'red' if edge.R else 'yellow'
 
-                plt.scatter(edge.x, edge.y, s=700, c=hyperedge_color, marker='s',
+                if draw_tags:
+                    plt.scatter(edge.x, edge.y, s=700, c=hyperedge_color, marker='s',
                             edgecolors='black', linewidths=2, zorder=14)
 
-                # Add R value to label if marked
-                label_text = f"{edge.label}\nR={edge.R}" if edge.R else edge.label
-                plt.text(edge.x, edge.y, label_text, ha='center', va='center',
-                         fontsize=12, fontweight='bold', zorder=15)
+                    # Add R value to label if marked
+                    label_text = f"{edge.label}\nR={edge.R}" if edge.R else edge.label
+                    plt.text(edge.x, edge.y, label_text, ha='center', va='center',
+                             fontsize=12, fontweight='bold', zorder=15)
 
                 # Connection lines to nodes
-                connection_color = 'red' if edge.R else 'black'
-                for node in edge.nodes:
-                    plt.plot([edge.x, node.x], [edge.y, node.y],
-                            color=connection_color, alpha=0.6,
-                            linewidth=2, zorder=5)
+                if draw_tags:
+                    connection_color = 'red' if edge.R else 'black'
+                    for node in edge.nodes:
+                        plt.plot([edge.x, node.x], [edge.y, node.y],
+                                color=connection_color, alpha=0.6,
+                                linewidth=2, zorder=5)
 
         for node in self.nodes:
             color = 'lightblue'
-            plt.scatter(node.x, node.y, s=600, c=color, edgecolors='black',
-                        linewidths=2, zorder=9)
-            plt.text(node.x, node.y, node.label, ha='center', va='center',
-                     fontsize=10, fontweight='bold', zorder=10)
+            if draw_tags:
+                plt.scatter(node.x, node.y, s=600, c=color, edgecolors='black',
+                            linewidths=2, zorder=9)
+                plt.text(node.x, node.y, node.label, ha='center', va='center',
+                 fontsize=10, fontweight='bold', zorder=10)
 
         plt.axis('equal')
         plt.grid(True, alpha=0.3)
@@ -110,7 +117,7 @@ class HyperGraph:
         plt.title('HyperGraph Visualization')
 
         if filename:
-            plt.savefig(filename, dpi=150, bbox_inches='tight')
+            plt.savefig(filename, dpi=250, bbox_inches='tight')
         else:
             plt.show()
 
